@@ -1,22 +1,24 @@
 import { FC } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './components/pages/Home';
+import SearchBooks from './components/pages/SearchBooks';
 import Login from './components/pages/Login';
 import ClickLink from './components/pages/ClickLink';
+import Result from './components/pages/Result';
 
 const App: FC = () => (
   <Router>
     <ClickLink />
-    <div>
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </div>
+    <Switch>
+      <Route path="/login">
+        <Login />
+      </Route>
+      <Route path="/test/:param">
+        <Result />
+      </Route>
+      <Route path="/">
+        <SearchBooks />
+      </Route>
+    </Switch>
   </Router>
 );
 
