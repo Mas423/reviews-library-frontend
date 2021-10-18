@@ -12,7 +12,7 @@ const ClickLink: FC = () => (
           <Link to="/login">Login</Link>
         </li>
         <li>
-          <Link to="/test/book">Search</Link>
+          <Link to="/test/?q=book">Search</Link>
         </li>
       </ul>
     </nav>

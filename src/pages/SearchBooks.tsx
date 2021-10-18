@@ -14,18 +14,23 @@ const SearchBooks: FC = () => {
   };
 
   const handleClick = () => {
-    if (searchString) history.push(`/test/${searchString}`);
+    if (searchString)
+      history.push({
+        pathname: `/search`,
+        search: `?q=${searchString}&startIndex=0&maxResults=40`,
+        // `/test/${searchString}`
+      });
   };
 
   return (
     <>
-      <h1>[Home]</h1>
+      <h1>[SearchBooks]</h1>
 
       <h3>{searchString}</h3>
-      <form onSubmit={() => handleClick()}>
-        <input type="text" value={searchString} onChange={inputHandleChange} />
-        <button type="submit">Books情報取得</button>
-      </form>
+      <input type="text" value={searchString} onChange={inputHandleChange} />
+      <button type="button" onClick={() => handleClick()}>
+        Books情報取得
+      </button>
     </>
   );
 };

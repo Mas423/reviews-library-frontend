@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import SearchBooks from './components/pages/SearchBooks';
-import Login from './components/pages/Login';
-import ClickLink from './components/pages/ClickLink';
-import Result from './components/pages/Result';
+import SearchBooks from './pages/SearchBooks';
+import Login from './pages/Login';
+import ClickLink from './pages/ClickLink';
+import Result from './pages/Result';
 
 const App: FC = () => (
   <Router>
@@ -12,10 +12,10 @@ const App: FC = () => (
       <Route path="/login">
         <Login />
       </Route>
-      <Route path="/test/:param">
+      <Route path="/:search">
         <Result />
       </Route>
-      <Route path="/">
+      <Route exact path="/">
         <SearchBooks />
       </Route>
     </Switch>

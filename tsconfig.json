@@ -18,7 +18,10 @@
 
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    // Cannot find type definition
+    // https://github.com/microsoft/TypeScript/issues/27956
+    "typeRoots": ["node_modules/@types"]
   },
   "include": ["src"]
 }
