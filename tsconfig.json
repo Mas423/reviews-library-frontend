@@ -21,7 +21,7 @@
     "noFallthroughCasesInSwitch": true,
     // Cannot find type definition
     // https://github.com/microsoft/TypeScript/issues/27956
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types", "/src/types"]
   },
   "include": ["src"]
 }

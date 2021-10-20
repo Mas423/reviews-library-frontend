@@ -67,11 +67,21 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        generator: {
+          filename: 'assets/[name][ext]',
+        },
+        type: 'asset/resource',
+      },
     ],
   },
   target: ['web', 'es5'],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      assets: path.resolve(__dirname, 'src/assets/'),
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
