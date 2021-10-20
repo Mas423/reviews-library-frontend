@@ -1,5 +1,7 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+/* eslint-disable jsx-a11y/img-redundant-alt */
+import { ChangeEvent, FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import NothingImage from 'assets/nothing_image.jpg';
 import Books from '../types/Book';
 import GetBooks, { HistoryState } from '../api/GetBooks';
 
@@ -11,8 +13,8 @@ const SearchBooks: FC = () => {
 
   useEffect(() => {
     const getBooks = async () => {
-      const data = await GetBooks(history);
-      setBooks(data);
+      const bookData = await GetBooks(history);
+      setBooks(bookData);
     };
     void getBooks();
     // historyでは更新タイミングが遅れた。レンダリングの有無の違い。
@@ -40,7 +42,7 @@ const SearchBooks: FC = () => {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const EnterHandleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       // TODO:inputのvalueを入れたい
@@ -54,7 +56,7 @@ const SearchBooks: FC = () => {
         type="text"
         value={searchString}
         onChange={inputHandleChange}
-        onKeyPress={handleKeyPress}
+        onKeyPress={EnterHandleKeyPress}
       />
       <button type="button" onClick={() => searchHandleClick()}>
         検索
@@ -64,11 +66,15 @@ const SearchBooks: FC = () => {
         books.items.map((book) => (
           <>
             <h3 key={book.id}>{book.volumeInfo.title}</h3>
-            <img
-              key={book.etag}
-              src={book.volumeInfo.imageLinks?.smallThumbnail}
-              alt="Noting"
-            />
+            {book.volumeInfo.imageLinks?.smallThumbnail ? (
+              <img
+                key={book.etag}
+                src={book.volumeInfo.imageLinks?.smallThumbnail}
+                alt="NothingImage"
+              />
+            ) : (
+              <img src={NothingImage} alt="NothingImage" />
+            )}
           </>
         ))
       ) : (

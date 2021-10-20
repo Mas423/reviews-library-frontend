@@ -12,6 +12,7 @@ module.exports = merge(commonConfig, {
   devServer: {
     port: 8080,
     hot: true,
+    historyApiFallback: true,
     static: {
       directory: path.resolve(__dirname, 'dist'),
     },

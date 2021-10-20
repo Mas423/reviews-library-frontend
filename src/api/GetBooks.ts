@@ -5,6 +5,7 @@ import Books from '../types/Book';
 export type HistoryState = {
   startIndex?: number;
   maxResults?: number;
+  // TODO:Google Books APIとAmazon APIとで分けるフラグ追加。
 };
 
 const getBooks = async (history: H.History<HistoryState>): Promise<Books> => {
@@ -24,6 +25,13 @@ const getBooks = async (history: H.History<HistoryState>): Promise<Books> => {
   console.log(URL);
   // eslint-disable-next-line no-console
   console.log(res.data);
+  // TODO:無理やり昇順にしたがそんなに便利じゃなかった。
+  // res.data.items = res.data.items.sort((previous, following) => {
+  //   if (previous.volumeInfo.title > following.volumeInfo.title) return 1;
+  //   if (previous.volumeInfo.title < following.volumeInfo.title) return -1;
+
+  //   return 0;
+  // });
 
   return res.data;
 };
