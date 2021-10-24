@@ -21,18 +21,6 @@ const getBooks = async (history: H.History<HistoryState>): Promise<Books> => {
     throw new Error('Error');
   });
 
-  // eslint-disable-next-line no-console
-  console.log(URL);
-  // eslint-disable-next-line no-console
-  console.log(res.data);
-  // TODO:無理やり昇順にしたがそんなに便利じゃなかった。
-  // res.data.items = res.data.items.sort((previous, following) => {
-  //   if (previous.volumeInfo.title > following.volumeInfo.title) return 1;
-  //   if (previous.volumeInfo.title < following.volumeInfo.title) return -1;
-
-  //   return 0;
-  // });
-
   return res.data;
 };
 

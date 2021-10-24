@@ -95,7 +95,10 @@ module.exports = {
         explicitSpread: 'ignore',
       },
     ],
+    // Reducerでのエラー回避
+    // https://github.com/reduxjs/redux-toolkit/issues/521
     'react/react-in-jsx-scope': 'off',
+    'no-param-reassign': ['error', { props: false }],
   },
   // propTypesプロパティ定義の強制を.tsxファイルは無効化
   overrides: [
