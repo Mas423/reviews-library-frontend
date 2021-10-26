@@ -64,9 +64,6 @@ const SearchBooks: FC = () => {
 
   return (
     <Box>
-      <Box top={0} position="sticky" zIndex="sticky">
-        header
-      </Box>
       <h3>{location.search}</h3>
       <h3>{search.searchString}</h3>
       <input

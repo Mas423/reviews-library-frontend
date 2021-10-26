@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import { ChangeEvent, FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import NavigationBar from './NavigationBar';
 
 const BooksSearchWindow: FC = () => {
   const [searchString, setSearchString] = useState<string>('');
@@ -36,7 +35,6 @@ const BooksSearchWindow: FC = () => {
 
   return (
     <>
-      <NavigationBar />
       {searchString ? <h3>{searchString}</h3> : <h3>検索文字</h3>}
       <input type="text" value={searchString} onChange={inputHandleChange} />
       <button type="button" onClick={() => searchHandleClick()}>
