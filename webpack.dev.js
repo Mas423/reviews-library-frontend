@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = merge(commonConfig, {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
 
   watch: true,
 

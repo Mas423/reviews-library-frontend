@@ -22,3 +22,5 @@ sketch
 # Manual
 dist
 Tool
+.vscode
+.env

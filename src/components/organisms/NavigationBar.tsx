@@ -1,27 +1,23 @@
 import { FC } from 'react';
-import {
-  Box,
-  Wrap,
-  // VStack
-  // Text,
-  Flex,
-  Stack,
-} from '@chakra-ui/react';
+import { Box, Wrap, Flex, Stack } from '@chakra-ui/react';
 import { AiFillBook, AiFillHome, AiOutlineSearch } from 'react-icons/ai';
-import IconButton from '../molecules/IconButton';
+import IconButton from '../molecules/NavigationButton';
 
 const NavigationMenus = [
   {
     title: 'Home',
     icon: AiFillHome,
+    to: '/',
   },
   {
     title: 'Search',
     icon: AiOutlineSearch,
+    to: '/search',
   },
   {
     title: 'BookShelf',
     icon: AiFillBook,
+    to: '/',
   },
 ];
 
@@ -39,6 +35,7 @@ const NavigationBar: FC = () => {
                   key={menu.title}
                   icon={menu.icon}
                   title={menu.title}
+                  to={menu.to}
                 />
               ))}
             </Stack>
