@@ -1,12 +1,12 @@
-// TODO: 一時的にコンソール表示のため許可
-/* eslint-disable no-console */
 import { FC } from 'react';
+import Header from '../components/organisms/Header';
 
 const Home: FC = () => {
   const home = 'Home';
 
   return (
     <>
+      <Header />
       <h1>[{home}]</h1>
     </>
   );

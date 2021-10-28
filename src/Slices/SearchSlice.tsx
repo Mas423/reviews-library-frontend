@@ -5,7 +5,6 @@ import {
 import {
   createSlice,
   configureStore,
-  PayloadAction,
   createAsyncThunk,
   SerializedError,
 } from '@reduxjs/toolkit';
@@ -14,18 +13,16 @@ import axios from 'axios';
 import Books from '../types/Book';
 
 export type State = {
-  searchString: string;
   booksData?: Books;
   error?: SerializedError;
 };
 
 const initialState: State = {
-  searchString: '',
   booksData: undefined,
   error: undefined,
 };
 
-export type History = {
+export type AddQuery = {
   startIndex?: number;
   maxResults?: number;
   // TODO:Google Books APIとAmazon APIとで分けるフラグ追加。
@@ -33,7 +30,7 @@ export type History = {
 
 export const getBooksData = createAsyncThunk(
   'booksData/getBooksData',
-  async (history: H.History<History>) => {
+  async (history: H.History<AddQuery>) => {
     const baseURL = `https://www.googleapis.com/books/v1/volumes`;
     const query = `${history.location.search}`;
     let URL = baseURL + query;
@@ -53,12 +50,7 @@ export const getBooksData = createAsyncThunk(
 const searchBooksSlice = createSlice({
   name: 'searchBooks',
   initialState,
-  reducers: {
-    updateSearchString: (state, action: PayloadAction<string>) => ({
-      ...state,
-      searchString: action.payload,
-    }),
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getBooksData.fulfilled, (state, action) => {
       state.booksData = action.payload;
@@ -68,8 +60,6 @@ const searchBooksSlice = createSlice({
     });
   },
 });
-
-export const { updateSearchString } = searchBooksSlice.actions;
 
 export const store = configureStore({
   reducer: {

@@ -1,85 +1,48 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import { ChangeEvent, FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Box, Button } from '@chakra-ui/react';
+import { Box, HStack } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import SearchResult from './SearchResult';
-import {
-  useSelector,
-  getBooksData,
-  updateSearchString,
-} from '../Slices/SearchSlice';
+import { useSelector, getBooksData } from '../Slices/SearchSlice';
 import { HistoryState } from '../api/GetBooks';
+import BooksSearchForm from '../components/organisms/BooksSearchForm';
+import Header from '../components/organisms/Header';
+import NavigationBar from '../components/organisms/NavigationBar';
 
 const SearchBooks: FC = () => {
-  // const [books, setBooks] = useState<Books>();
   const history = useHistory<HistoryState>();
   const location = useLocation();
   const { search } = useSelector((state) => ({
     search: state.search,
   }));
-
   const dispatch = useDispatch();
 
   // メモリリークの警告は無視で良い(実際には発生しないため)
   // https://github.com/reactwg/react-18/discussions/82
   useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log(history.location.search);
     dispatch(getBooksData(history));
-
-    // historyでは更新タイミングが遅れた。レンダリングの有無の違い。
   }, [location.search]);
-
-  const searchHandleClick = () => {
-    try {
-      if (!search.searchString) return;
-      history.push(
-        {
-          pathname: `/search`,
-          search: `?q=${search.searchString}`,
-        },
-        {
-          startIndex: 0,
-          maxResults: 10,
-        },
-      );
-    } catch {
-      throw new Error('Error');
-    }
-  };
-
-  const inputHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    try {
-      dispatch(updateSearchString(e.target.value));
-    } catch (error) {
-      throw new Error('inputError');
-    }
-  };
-
-  const EnterHandleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      // TODO:inputのvalueを入れたい
-    }
-  };
 
   return (
     <Box>
-      <h3>{location.search}</h3>
-      <h3>{search.searchString}</h3>
-      <input
-        type="text"
-        value={search.searchString}
-        onChange={inputHandleChange}
-        onKeyPress={EnterHandleKeyPress}
-      />
-      <Button type="button" onClick={() => searchHandleClick()}>
-        検索
-      </Button>
-      {search.booksData ? (
-        <SearchResult books={search.booksData} />
-      ) : (
-        <h3>Now loading</h3>
-      )}
+      <Header />
+      <HStack>
+        <Box marginLeft="32" marginRight="32">
+          <Box>
+            <NavigationBar />
+          </Box>
+          <h3>{location.search}</h3>
+          <BooksSearchForm initialString={history.location.search} />
+          {search.booksData ? (
+            <SearchResult books={search.booksData} />
+          ) : (
+            <h3>Now loading</h3>
+          )}
+        </Box>
+      </HStack>
     </Box>
   );
 };
