@@ -1,15 +1,19 @@
 import { FC } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, BoxProps } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
 
-type CustomIconType = {
+interface CustomIconProps extends BoxProps {
   icon: IconType;
-};
+}
 
-const CustomIcon: FC<CustomIconType> = ({ icon }) => (
-  <>
-    <Box as={icon} />
-  </>
-);
+const CustomIcon: FC<CustomIconProps> = (props) => {
+  const { icon } = props;
+
+  return (
+    <>
+      <Box as={icon} />
+    </>
+  );
+};
 
 export default CustomIcon;

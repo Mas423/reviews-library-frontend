@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import NothingImage from 'assets/nothing_image.jpg';
 import { Box, Image } from '@chakra-ui/react';
-import Books from '../types/Book';
+import Books from '../types/Books';
 
 type SearchResultType = {
   books: Books | undefined;

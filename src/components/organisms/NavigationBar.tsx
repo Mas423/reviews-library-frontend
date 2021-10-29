@@ -34,7 +34,7 @@ const NavigationBar: FC = () => {
                 <IconButton
                   key={menu.title}
                   icon={menu.icon}
-                  title={menu.title}
+                  name={menu.title}
                   to={menu.to}
                 />
               ))}

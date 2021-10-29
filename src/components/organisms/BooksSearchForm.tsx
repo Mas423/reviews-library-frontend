@@ -1,18 +1,53 @@
-/* eslint-disable no-console */
 import { Input, HStack, IconButton } from '@chakra-ui/react';
-import { ChangeEvent, FC, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-type BooksSearchFormType = {
-  initialString: string;
-};
+interface Props {
+  searchString: string;
+  handleUpdateForm: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleEnterSearch: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleSearch: () => void;
+  handleSelectAll: (e: React.FocusEvent<HTMLInputElement>) => void;
+}
 
-const BooksSearchForm: FC<BooksSearchFormType> = ({ initialString = '' }) => {
-  const [searchString, setSearchString] = useState('');
+const Component: FC<Props> = ({
+  searchString,
+  handleUpdateForm,
+  handleEnterSearch,
+  handleSearch: searchHandleClick,
+  handleSelectAll,
+}) => (
+  <HStack>
+    <Input
+      value={searchString}
+      placeholder="Search string"
+      maxW="60"
+      onChange={handleUpdateForm}
+      onKeyPress={handleEnterSearch}
+      onFocus={handleSelectAll}
+      bg="white"
+    />
+    <IconButton
+      aria-label="Search books"
+      icon={<AiOutlineSearch />}
+      onClick={() => searchHandleClick()}
+    />
+  </HStack>
+);
+
+const Container: FC = () => {
   const history = useHistory();
+  const location = useLocation();
+  const initSearchString = () =>
+    decodeURI(history.location.search.replace(/\?q=/, ''));
+  const [searchString, setSearchString] = useState('');
 
-  const inputHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    setSearchString(initSearchString);
+  }, [location.search]);
+
+  const handleUpdateForm = (e: ChangeEvent<HTMLInputElement>) => {
     // TODO:バリデーション
     try {
       setSearchString(e.target.value);
@@ -21,7 +56,7 @@ const BooksSearchForm: FC<BooksSearchFormType> = ({ initialString = '' }) => {
     }
   };
 
-  const searchHandleClick = () => {
+  const handleSearch = () => {
     try {
       if (!searchString) return;
       history.push(
@@ -39,30 +74,25 @@ const BooksSearchForm: FC<BooksSearchFormType> = ({ initialString = '' }) => {
     }
   };
 
-  const enterHandleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleEnterSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      // TODO:inputのvalueを入れたい
+      handleSearch();
     }
   };
 
+  const handleSelectAll = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.target.select();
+  };
+
   return (
-    <HStack>
-      <Input
-        value={initialString || searchString}
-        placeholder="検索文字"
-        maxW="60"
-        onChange={inputHandleChange}
-        onKeyPress={enterHandleKeyPress}
-        bg="white"
-      />
-      <IconButton
-        aria-label="Search books"
-        icon={<AiOutlineSearch />}
-        onClick={() => searchHandleClick()}
-      />
-    </HStack>
+    <Component
+      searchString={searchString}
+      handleUpdateForm={handleUpdateForm}
+      handleEnterSearch={handleEnterSearch}
+      handleSearch={handleSearch}
+      handleSelectAll={handleSelectAll}
+    />
   );
 };
-
-export default BooksSearchForm;
+export default Container;

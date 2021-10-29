@@ -15,7 +15,7 @@ const Header: FC = () => (
         Book management
       </Heading>
     </Flex>
-    <BooksSearchForm initialString="" />
+    <BooksSearchForm />
   </Flex>
 );
 

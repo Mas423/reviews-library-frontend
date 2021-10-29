@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as H from 'history';
-import Books from '../types/Book';
+import Books from '../types/Books';
 
 export type HistoryState = {
   startIndex?: number;
