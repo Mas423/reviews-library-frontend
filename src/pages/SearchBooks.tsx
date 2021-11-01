@@ -5,26 +5,24 @@ import {
   useLocation,
   useRouteMatch,
 } from 'react-router-dom';
-import { Box, HStack, Spinner } from '@chakra-ui/react';
+import { Box, Spinner } from '@chakra-ui/react';
 import SearchResult from './SearchResult';
 import getBooks, { HistoryState } from '../api/GetBooks';
 import BooksSearchForm from '../components/organisms/BooksSearchForm';
 import Header from '../components/organisms/Header';
 import NavigationBar from '../components/organisms/NavigationBar';
-import Books from '../types/Books';
+import { Response } from '../types/RakutenBooks';
 
 interface Props extends RouteComponentProps {
-  books: Books | undefined;
+  books: Response | undefined;
 }
 
 const Component: FC<Props> = ({ books, match, location, history }) => (
-  <Box>
-    <Header />
-    <HStack>
+  <>
+    <Box>
+      <Header />
       <Box marginLeft="32" marginRight="32">
-        <Box>
-          <NavigationBar />
-        </Box>
+        <NavigationBar />
         <h3>{match.path}</h3>
         <h3>{match.url}</h3>
         <h3>{location.pathname}</h3>
@@ -32,15 +30,17 @@ const Component: FC<Props> = ({ books, match, location, history }) => (
         <h3>{history.location.pathname}</h3>
         <h3>{history.location.search}</h3>
         <BooksSearchForm />
-        {books?.items ? <SearchResult books={books} /> : <Spinner />}
+        <Box alignItems="center" marginLeft="48" marginRight="48">
+          {books?.Items ? <SearchResult books={books} /> : <Spinner />}
+        </Box>
       </Box>
-    </HStack>
-  </Box>
+    </Box>
+  </>
 );
 
 const Container: FC = () => {
   const history = useHistory<HistoryState>();
-  const [books, setBooks] = useState<Books>();
+  const [books, setBooks] = useState<Response>();
   const location = useLocation();
   const match = useRouteMatch();
 

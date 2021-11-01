@@ -1,44 +1,44 @@
 import { FC } from 'react';
 import NothingImage from 'assets/nothing_image.jpg';
-import { Box, Image } from '@chakra-ui/react';
-import Books from '../types/Books';
+import { Box, Image, Link, Flex } from '@chakra-ui/react';
+import { Response } from '../types/RakutenBooks';
 
 type SearchResultType = {
-  books: Books | undefined;
+  books: Response | undefined;
 };
 
 const SearchResult: FC<SearchResultType> = ({ books }) => (
-  <>
-    {books?.items?.map((book) => (
-      <Box
-        maxW="sm"
-        borderWidth="1px"
-        borderRadius="lg"
-        overflow="hidden"
-        key={book.id}
-      >
+  <Flex wrap="wrap" direction="column" justify="center">
+    {books?.Items?.map((book) => (
+      <Box borderWidth="1px" borderRadius="lg" key={book.isbn}>
         <Box
           mt="1"
           fontWeight="semibold"
           as="h4"
           lineHeight="tight"
           isTruncated
-          key={book.volumeInfo.title}
+          key={book.title}
         >
-          {book.volumeInfo.title}
+          {book.title}
         </Box>
-        {book.volumeInfo.imageLinks?.smallThumbnail ? (
+        {book.largeImageUrl ? (
+          <Link isExternal href={book.affiliateUrl}>
+            <Image
+              key={book.largeImageUrl}
+              src={book.largeImageUrl}
+              alt="NothingImage"
+            />
+          </Link>
+        ) : (
           <Image
-            key={book.volumeInfo.imageLinks.smallThumbnail}
-            src={book.volumeInfo.imageLinks.smallThumbnail}
+            key={book.booksGenreId}
+            src={NothingImage}
             alt="NothingImage"
           />
-        ) : (
-          <Image key={book.etag} src={NothingImage} alt="NothingImage" />
         )}
       </Box>
     ))}
-  </>
+  </Flex>
 );
 
 export default SearchResult;

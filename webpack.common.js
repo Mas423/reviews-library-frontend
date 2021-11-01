@@ -5,6 +5,9 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // node v15.x以下でのみ動作
 const Fibers = require('fibers');
+const dotenv = require('dotenv');
+const webpack = require('webpack');
+dotenv.config().parsed;
 
 module.exports = {
   context: __dirname,
@@ -100,5 +103,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'style.css',
     }),
+    new webpack.EnvironmentPlugin([
+      'RAKUTEN_DEV_ID',
+      'RAKUTEN_SECRET',
+      'RAKUTEN_ID',
+    ]),
   ],
 };

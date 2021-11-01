@@ -1,0 +1,44 @@
+export type Response = {
+  GenreInformation: [];
+  Items: ItemElement[];
+  carrier: number;
+  count: number;
+  first: number;
+  hits: number;
+  last: number;
+  page: number;
+  pageCount: number;
+};
+
+export type ItemElement = {
+  affiliateUrl: string;
+  author: string;
+  authorKana: string;
+  availability: string;
+  booksGenreId: string;
+  chirayomiUrl: string;
+  contents: string;
+  discountPrice: number;
+  discountRate: number;
+  isbn: string;
+  itemCaption: string;
+  itemPrice: number;
+  itemUrl: string;
+  largeImageUrl: string;
+  limitedFlag: number;
+  listPrice: number;
+  mediumImageUrl: string;
+  postageFlag: number;
+  publisherName: string;
+  reviewAverage: string;
+  reviewCount: number;
+  salesDate: string;
+  seriesName: string;
+  seriesNameKana: string;
+  size: string;
+  smallImageUrl: string;
+  subTitle: string;
+  subTitleKana: string;
+  title: string;
+  titleKana: string;
+};
