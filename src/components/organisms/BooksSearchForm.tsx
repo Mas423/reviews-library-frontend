@@ -39,8 +39,13 @@ const Component: FC<Props> = ({
 const Container: FC = () => {
   const history = useHistory();
   const location = useLocation();
-  const initSearchString = () =>
-    decodeURI(history.location.search.replace(/\?q=/, ''));
+  const initSearchString = () => {
+    // TODO:isbnのときだけ弾いているが冗長
+    const initial = decodeURI(history.location.search.replace(/\?q=/, ''));
+    if (initial.includes('?')) return '';
+
+    return initial;
+  };
   const [searchString, setSearchString] = useState('');
 
   useEffect(() => {

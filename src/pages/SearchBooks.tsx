@@ -5,9 +5,9 @@ import {
   useLocation,
   useRouteMatch,
 } from 'react-router-dom';
-import { Box, Spinner, Stack } from '@chakra-ui/react';
+import { Box, Skeleton, Stack } from '@chakra-ui/react';
 import Result from './SearchBooksResult';
-import getBooks, { HistoryState } from '../api/GetBooks';
+import { HistoryState, getBooks } from '../api/GetBooks';
 import BooksSearchForm from '../components/organisms/BooksSearchForm';
 import Header from '../components/organisms/Header';
 import NavigationBar from '../components/organisms/NavigationBar';
@@ -21,7 +21,10 @@ const Component: FC<Props> = ({ books, match, location, history }) => (
   <>
     <Header />
     <NavigationBar />
-    <Box marginLeft="20%" marginRight="20%">
+    <Box
+      marginLeft={{ base: '2%', sm: '4%', md: '20%' }}
+      marginRight={{ base: '2%', sm: '4%', md: '20%' }}
+    >
       <h3>{`match.patn: ${match.path}`}</h3>
       <h3>{`match.url: ${match.url}`}</h3>
       <h3>{`location.pathname: ${location.pathname}`}</h3>
@@ -33,7 +36,14 @@ const Component: FC<Props> = ({ books, match, location, history }) => (
         {books?.Items ? (
           books.Items.map((book) => <Result key={book.isbn} book={book} />)
         ) : (
-          <Spinner />
+          <Stack>
+            <Skeleton style={{ width: '100%' }} />
+            <Skeleton style={{ width: '100%' }} />
+            <Skeleton style={{ width: '100%' }} />
+            <Skeleton style={{ width: '100%' }} />
+            <Skeleton style={{ width: '100%' }} />
+            <Skeleton style={{ width: '100%' }} />
+          </Stack>
         )}
       </Stack>
     </Box>

@@ -18,6 +18,7 @@ const IconButton: FC<NavigationButtonProp> = (props) => {
       as={Link}
       fontSize="xl"
       leftIcon={<CustomIcon icon={icon} />}
+      shadow="md"
       to={to}
     >
       {title}

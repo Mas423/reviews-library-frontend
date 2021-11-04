@@ -1,5 +1,6 @@
 import { Flex, Heading } from '@chakra-ui/react';
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import BooksSearchForm from './BooksSearchForm';
 
 const Header: FC = () => (
@@ -8,12 +9,15 @@ const Header: FC = () => (
     align="center"
     justify="space-between"
     padding={6}
-    bg="blue.500"
+    bg="blue.400"
+    shadow="md"
   >
     <Flex align="center" mr={6}>
-      <Heading as="h1" size="lg" letterSpacing="tighter">
-        Book management
-      </Heading>
+      <Link to="/">
+        <Heading as="h1" size="lg" letterSpacing="tighter">
+          Book management
+        </Heading>
+      </Link>
     </Flex>
     <BooksSearchForm />
   </Flex>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as H from 'history';
-import { Response } from '../types/RakutenBooks';
+import { ItemElement, Response } from '../types/RakutenBooks';
 
 export type HistoryState = {
   startIndex?: number;
@@ -20,7 +20,7 @@ const getEnv = () => {
   return null;
 };
 
-const getBooks = async (
+export const getBooks = async (
   history: H.History<HistoryState>,
 ): Promise<Response> => {
   const title = decodeURI(`${history.location.search.replace(/\?q=/, '')}`);
@@ -38,18 +38,33 @@ const getBooks = async (
     hits: 10,
     page: 1,
     outOfStockFlag: 1,
-    sort: 'standard',
   };
   const baseURL = `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404`;
   const res = await axios.get<Response>(baseURL, { params }).catch(() => {
     throw new Error('axios error');
   });
-  // eslint-disable-next-line no-console
-  console.log(res);
-  // eslint-disable-next-line no-console
-  console.log(res.data);
 
   return res.data;
 };
 
-export default getBooks;
+export const getIsbnBooks = async (isbn: string): Promise<ItemElement> => {
+  const envData = getEnv();
+  if (envData == null) {
+    throw new Error('envData is null');
+  }
+  const params = {
+    format: 'json',
+    formatVersion: 2,
+    isbn,
+    booksGenreId: '001',
+    applicationId: envData.devId,
+    affiliateId: envData.affiliateId,
+    outOfStockFlag: 1,
+  };
+  const baseURL = `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404`;
+  const res = await axios.get<Response>(baseURL, { params }).catch(() => {
+    throw new Error('axios error');
+  });
+
+  return res.data.Items[0];
+};
