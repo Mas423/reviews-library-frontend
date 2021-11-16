@@ -5,8 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
-    "dev": "webpack --config webpack.dev.js",
+    "dev": "webpack --config webpack.dev.js & yarn nginx",
     "build": "webpack --config webpack.prod.js",
+    "stop": "docker-compose -f ./docker/docker-compose.yml stop",
     "test": "jest",
     "prettier": "prettier --write .",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
@@ -14,6 +15,7 @@
     "format": "prettier --write --loglevel=warn '{public,src}/**/*.{js,jsx,ts,tsx,html,gql,graphql,json}'",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:conflict": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "nginx": "docker-compose -f ./docker/docker-compose.yml up -d",
     "preinstall": "typesync || :"
   },
   "dependencies": {
