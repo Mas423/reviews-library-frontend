@@ -24,3 +24,5 @@ dist
 Tool
 .vscode
 .env
+docker/nginx/logs
+docker/nginx/*.conf
