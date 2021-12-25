@@ -5,11 +5,12 @@ services:
     container_name: nginx
     build: ./docker/nginx
     ports:
-      - '80:80'
+      - '${NGINX_HOST_PORT}:${NGINX_PORT}'
     volumes:
       - ./dist:/usr/share/nginx/html
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./docker/nginx/logs:/var/log/nginx
+
   front:
     build:
       context: .
@@ -19,6 +20,11 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - 5000:5000
+      - ${FRONT_HOST_PORT}:${FRONT_PORT}
     volumes:
       - .:/home/node/client
+
+networks:
+  default:
+    external: true
+    name: dev_network

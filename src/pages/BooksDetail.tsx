@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   HStack,
@@ -8,8 +8,10 @@ import {
   Spinner,
   Text,
   Box,
+  Button,
   //   Flex,
 } from '@chakra-ui/react';
+import axios from 'axios';
 import NavigationBar from '../components/organisms/NavigationBar';
 import Header from '../components/organisms/Header';
 import { ItemElement } from '../types/RakutenBooks';
@@ -18,9 +20,10 @@ import { getIsbnBooks } from '../api/GetBooks';
 interface Props {
   book: ItemElement | undefined;
   trimImageUrl: string | undefined;
+  handleClickPostBook: () => void;
 }
 
-const Component: FC<Props> = ({ book, trimImageUrl }) => (
+const Component: FC<Props> = ({ book, trimImageUrl, handleClickPostBook }) => (
   <>
     <Header />
     <NavigationBar />
@@ -60,6 +63,7 @@ const Component: FC<Props> = ({ book, trimImageUrl }) => (
         </Box>
       </HStack>
     </Box>
+    <Button onClick={handleClickPostBook}>登録</Button>
   </>
 );
 
@@ -68,6 +72,17 @@ const Container: FC = () => {
   const [book, setBook] = useState<ItemElement>();
   const trimImageUrl = book?.largeImageUrl.replace(/ex=200x200/, 'ex=400x400');
 
+  const handleClickPostBook = async () => {
+    if (book) {
+      // eslint-disable-next-line no-console
+      if (!book.isbn) console.log('ISBNがありません。');
+      const { isbn } = book;
+      const res = await axios.post(`http://localhost/api/books`, { isbn });
+      // eslint-disable-next-line no-console
+      console.log(res)
+    }
+  };
+
   useEffect(() => {
     const res = async () => {
       setBook(await getIsbnBooks(location.state));
@@ -75,7 +90,13 @@ const Container: FC = () => {
     void res();
   }, [location.search]);
 
-  return <Component book={book} trimImageUrl={trimImageUrl} />;
+  return (
+    <Component
+      book={book}
+      trimImageUrl={trimImageUrl}
+      handleClickPostBook={handleClickPostBook}
+    />
+  );
 };
 
 export default Container;

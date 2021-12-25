@@ -4,5 +4,3 @@ ENV NODE_ENV="development"
 
 WORKDIR /home/node/client
 USER node
-
-EXPOSE 5000

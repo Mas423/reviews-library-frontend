@@ -1,0 +1,38 @@
+{
+  "name": "front", // コンテナ表示名
+  "dockerComposeFile": [
+    "../docker-compose.yml" // Docker Composeのファイルパス
+  ],
+  "service": "front", // Docker Composeの接続サービス名
+  "remoteUser": "node", // デフォルトユーザをrootから切り替える
+  "workspaceFolder": "/home/node/client", // Workspaceのフォルダを指定
+  "extensions": [
+    // コンテナ内でインストールするVS Codeの拡張機能ID
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "vscodevim.vim",
+    "christian-kohler.path-intellisense"
+  ],
+  "settings": {
+    // コンテナ内に追加するVS Codeの設定
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.fixAll.styelint": true
+    },
+    "editor.formatOnSave": true,
+    // vim
+    "editor.snippetSuggestions": "top",
+    "editor.tabCompletion": "on",
+    "vim.insertModeKeyBindings": [
+      {
+        "before": ["j", "j"],
+        "after": ["<Esc>"]
+      }
+    ],
+    "vim.hlsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.easymotion": true,
+    "vim.visualstar": true,
+    "vim.useCtrlKeys": true
+  }
+}
