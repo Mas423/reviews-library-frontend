@@ -19,6 +19,7 @@
     "preinstall": "typesync || :"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^1.8.0",
     "@babel/runtime": "^7.15.4",
     "@chakra-ui/react": "^1.6.10",
     "@emotion/react": "^11",

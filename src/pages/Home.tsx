@@ -1,7 +1,9 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { Button, Input, FormControl, FormLabel } from '@chakra-ui/react';
 import axios from 'axios';
 import Header from '../components/organisms/Header';
+import Signup from '../auth/Signup';
+import AuthenticationButton from '../auth/AuthenticationButton';
 
 type Books =
   | {
@@ -33,6 +35,8 @@ const Component: FC<Props> = ({ books, handleClickGet }) => {
       ) : (
         <h5>Nothing Books</h5>
       )}
+      <AuthenticationButton />
+      <Signup />
     </>
   );
 };

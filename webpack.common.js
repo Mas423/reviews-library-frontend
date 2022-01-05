@@ -102,6 +102,8 @@ module.exports = {
       'RAKUTEN_DEV_ID',
       'RAKUTEN_SECRET',
       'RAKUTEN_ID',
+      'AUTH0_DOMAIN',
+      'AUTH0_CLIENT_ID',
     ]),
   ],
 };
