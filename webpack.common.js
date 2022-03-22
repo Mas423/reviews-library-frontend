@@ -2,7 +2,6 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const dotenv = require('dotenv');
 const webpack = require('webpack');
 dotenv.config().parsed;
@@ -24,29 +23,6 @@ module.exports = {
         options: {
           fix: true,
         },
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              url: false,
-              sourceMap: true,
-              module: true,
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              implementation: require('sass'),
-              souseMap: true,
-            },
-          },
-        ],
       },
       {
         test: /\.tsx?$/,
@@ -94,9 +70,6 @@ module.exports = {
         files: './src/**/*.{ts,tsx}',
       },
       async: false,
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'style.css',
     }),
     new webpack.EnvironmentPlugin([
       'RAKUTEN_DEV_ID',
