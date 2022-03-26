@@ -8,7 +8,7 @@ import BooksDetail from './pages/BooksDetail';
 const App: FC = () => (
   <Router>
     <Switch>
-      <Route path="/login">
+      <Route path="/auth">
         <Login />
       </Route>
       <Route path="/book">
