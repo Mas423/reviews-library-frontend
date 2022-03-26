@@ -25,4 +25,4 @@ Tool
 .vscode
 .env
 docker/nginx/logs
-docker/nginx/*.conf
+docker/nginx/**/*.conf

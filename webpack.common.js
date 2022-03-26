@@ -77,6 +77,14 @@ module.exports = {
       'RAKUTEN_ID',
       'AUTH0_DOMAIN',
       'AUTH0_CLIENT_ID',
+      // Firebase
+      'FB_API_KEY',
+      'FB_AUTH_DOMAIN',
+      'PROJECT_ID',
+      'STORAGE_BUCKET',
+      'MESSAGING_SENDERID',
+      'APP_ID',
+      'MEASUREMENT_ID',
     ]),
   ],
 };
