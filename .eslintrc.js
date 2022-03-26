@@ -99,6 +99,9 @@ module.exports = {
     // https://github.com/reduxjs/redux-toolkit/issues/521
     'react/react-in-jsx-scope': 'off',
     'no-param-reassign': ['error', { props: false }],
+    'import/prefer-default-export': 'off',
+    'no-console': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
   // propTypesプロパティ定義の強制を.tsxファイルは無効化
   overrides: [
