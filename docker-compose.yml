@@ -13,6 +13,7 @@ services:
     volumes:
       - ./dist:/usr/share/nginx/html
       - ./docker/nginx/templates:/etc/nginx/templates
+      - ./docker/nginx/logs:/var/log/nginx/
 
   front:
     build:
