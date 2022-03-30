@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { firebaseApp } from '../../sdk/firebase';
 import { isFirebaseError } from '../../types/auth';
@@ -9,6 +10,19 @@ export const signIn = async (
   try {
     const auth = getAuth(firebaseApp);
     const user = await signInWithEmailAndPassword(auth, email, password);
+
+    const idToken = await auth.currentUser?.getIdToken();
+    if (idToken) {
+      console.log('idTokenあり');
+      const res = await axios.get('/api/test', {
+        headers: {
+          Authorization: idToken,
+        },
+      });
+      console.log(res.headers);
+    } else {
+      console.log('idTokenなし');
+    }
     console.log(user);
   } catch (error) {
     if (
