@@ -10,20 +10,22 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { LoginInputs, signIn } from '../../features/auth/signIn';
+import Header from './Header';
 
 const SignIn: FC = () => {
   // react-fook-form試し
   const { register, handleSubmit, watch } = useForm<LoginInputs>();
 
   // 引数に渡した入力値を監視
-  console.log(watch('email'));
-  console.log(watch('password'));
+  console.log('email: ', watch('email'));
+  console.log('password: ', watch('password'));
 
   return (
     <>
+      <Header />
       <Flex>
-        <Heading>ユーザ管理</Heading>
         <Box>
+          <Heading as="h2">ユーザ管理</Heading>
           <form onSubmit={handleSubmit(signIn)}>
             <FormControl>
               <FormLabel>メールアドレス</FormLabel>
