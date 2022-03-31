@@ -2,6 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const dotenv = require('dotenv');
 const webpack = require('webpack');
 dotenv.config().parsed;
@@ -15,15 +16,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.tsx?$/,
-        exclude: [/node_modules/],
-        loader: 'eslint-loader',
-        options: {
-          fix: true,
-        },
-      },
       {
         test: /\.tsx?$/,
         use: {
@@ -71,13 +63,16 @@ module.exports = {
       },
       async: false,
     }),
+    new ESLintPlugin({
+      extensions: ['.ts'],
+      exclude: ['node_module', 'dist'],
+    }),
     new webpack.EnvironmentPlugin([
       'RAKUTEN_DEV_ID',
       'RAKUTEN_SECRET',
       'RAKUTEN_ID',
       'AUTH0_DOMAIN',
       'AUTH0_CLIENT_ID',
-      // Firebase
       'FB_API_KEY',
       'FB_AUTH_DOMAIN',
       'PROJECT_ID',
