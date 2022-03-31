@@ -3,27 +3,44 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { firebaseApp } from '../../sdk/firebase';
 import { isFirebaseError } from '../../types/auth';
 
-export const signIn = async (
-  email: string,
-  password: string,
-): Promise<void> => {
+export type LoginInputs = {
+  email: string;
+  password: string;
+  exampleRequired: string;
+};
+
+export const signIn = async (data: LoginInputs): Promise<void> => {
   try {
     const auth = getAuth(firebaseApp);
-    const user = await signInWithEmailAndPassword(auth, email, password);
 
-    const idToken = await auth.currentUser?.getIdToken();
+    if (!data.email || !data.password) {
+      console.log('ありません');
+    }
+
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      data.email,
+      data.password,
+    );
+
+    const idToken = await userCredential.user?.getIdToken();
+
     if (idToken) {
       console.log('idTokenあり');
-      const res = await axios.get('/api/test', {
-        headers: {
-          Authorization: idToken,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const res = await axios.post(
+        '/api/users',
+        {},
+        {
+          headers: {
+            Authorization: idToken,
+          },
         },
-      });
-      console.log(res.headers);
+      );
+      console.log('post完了');
     } else {
       console.log('idTokenなし');
     }
-    console.log(user);
   } catch (error) {
     if (
       error instanceof Error &&
