@@ -1,16 +1,47 @@
+import axios from 'axios';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { firebaseApp } from '../../sdk/firebase';
 import { isFirebaseError } from '../../types/auth';
 
-export const signUp = async (): Promise<void> => {
+export type Inputs = {
+  username: string;
+  email: string;
+  password: string;
+  exampleRequired: string;
+};
+
+export const signUp = async (data: Inputs): Promise<void> => {
   try {
-    const email = 'email@gmail.com';
-    const password = 'hogehoe_1234';
-    const auth = getAuth(firebaseApp);
-    const user = await createUserWithEmailAndPassword(auth, email, password);
-    if (user) {
-      console.log(user);
+    if (JSON.stringify(data)) {
+      console.log(data);
     }
+    const username = data?.username;
+    const email = data?.email;
+    const password = data?.password;
+    const auth = getAuth(firebaseApp);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password,
+    );
+
+    if (userCredential) {
+      console.log('user: ', userCredential.user);
+    }
+
+    const idToken = await userCredential.user.getIdToken();
+
+    const _ = axios.post(
+      '/api/users/',
+      {
+        username,
+      },
+      {
+        headers: {
+          Authorization: idToken,
+        },
+      },
+    );
   } catch (error) {
     if (
       error instanceof Error &&
