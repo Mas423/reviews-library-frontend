@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { FC, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
@@ -79,16 +80,16 @@ const Container: FC = () => {
       const { isbn } = book;
       const res = await axios.post(`http://localhost/api/books`, { isbn });
       // eslint-disable-next-line no-console
-      console.log(res)
+      console.log(res);
     }
   };
 
-  useEffect(() => {
-    const res = async () => {
-      setBook(await getIsbnBooks(location.state));
-    };
-    void res();
-  }, [location.search]);
+  // useEffect(() => {
+  //   const res = async () => {
+  //     setBook(await getIsbnBooks(location.state));
+  //   };
+  //   void res();
+  // }, [location.search]);
 
   return (
     <Component

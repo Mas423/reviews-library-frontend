@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as H from 'history';
 import { ItemElement, Response } from '../types/RakutenBooks';
 
 export type HistoryState = {
@@ -18,33 +17,6 @@ const getEnv = () => {
   }
 
   return null;
-};
-
-export const getBooks = async (
-  history: H.History<HistoryState>,
-): Promise<Response> => {
-  const title = decodeURI(`${history.location.search.replace(/\?q=/, '')}`);
-  const envData = getEnv();
-  if (envData == null) {
-    throw new Error('envData is null');
-  }
-  const params = {
-    format: 'json',
-    formatVersion: 2,
-    title,
-    booksGenreId: '001',
-    applicationId: envData.devId,
-    affiliateId: envData.affiliateId,
-    hits: 10,
-    page: 1,
-    outOfStockFlag: 1,
-  };
-  const baseURL = `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404`;
-  const res = await axios.get<Response>(baseURL, { params }).catch(() => {
-    throw new Error('axios error');
-  });
-
-  return res.data;
 };
 
 export const getIsbnBooks = async (isbn: string): Promise<ItemElement> => {
