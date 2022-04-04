@@ -10,7 +10,7 @@ const App: FC = () => (
   <BrowserRouter>
     <Routes>
       <Route path="book" element={<BooksDetail />} />
-      <Route path=":search" element={<SearchBooks />} />
+      <Route path="search" element={<SearchBooks />} />
       <Route path="signup" element={<SignUp />} />
       <Route path="login" element={<SignIn />} />
       <Route index element={<Home />} />

@@ -11,6 +11,9 @@ const Home: FC = () => (
       ログイン
     </Link>
     <SignUp />
+    <Link as={RouterLink} to="/search">
+      本の検索
+    </Link>
   </>
 );
 
