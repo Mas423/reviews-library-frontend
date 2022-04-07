@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SearchBooks from './pages/SearchBooks';
 import Home from './pages/Home';
 import BooksDetail from './pages/BooksDetail';
-import SignIn from './components/organisms/SignIn';
 import SignUp from './components/organisms/SignUp';
+import LogIn from './components/organisms/LogIn';
+import User from './pages/User';
 
 const App: FC = () => (
   <BrowserRouter>
@@ -12,7 +13,8 @@ const App: FC = () => (
       <Route path="book" element={<BooksDetail />} />
       <Route path="search" element={<SearchBooks />} />
       <Route path="signup" element={<SignUp />} />
-      <Route path="login" element={<SignIn />} />
+      <Route path="login" element={<LogIn />} />
+      <Route path="user" element={<User />} />
       <Route index element={<Home />} />
     </Routes>
   </BrowserRouter>

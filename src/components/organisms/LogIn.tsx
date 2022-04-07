@@ -9,10 +9,10 @@ import {
   FormLabel,
   Input,
 } from '@chakra-ui/react';
-import { LoginInputs, signIn } from '../../features/auth/signIn';
+import { LoginInputs, logIn } from '../../features/auth/logIn';
 import Header from './Header';
 
-const SignIn: FC = () => {
+const LogIn: FC = () => {
   // react-fook-form試し
   const { register, handleSubmit, watch } = useForm<LoginInputs>();
 
@@ -26,7 +26,7 @@ const SignIn: FC = () => {
       <Flex>
         <Box>
           <Heading as="h2">ユーザ管理</Heading>
-          <form onSubmit={handleSubmit(signIn)}>
+          <form onSubmit={handleSubmit(logIn)}>
             <FormControl>
               <FormLabel>メールアドレス</FormLabel>
 
@@ -52,4 +52,4 @@ const SignIn: FC = () => {
   );
 };
 
-export default SignIn;
+export default LogIn;

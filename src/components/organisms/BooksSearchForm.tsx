@@ -30,15 +30,24 @@ const BooksSearchForm: FC = () => {
       console.error('dataがないよ');
     }
     console.log('getします');
-    const res: AxiosResponse<SearchResult> = await axios.get('/api/search', {
+    //   const res: AxiosResponse<SearchResult> = await axios.get('/api/search', {
+    //     params: {
+    //       keywords: data.searchString,
+    //     },
+    //   });
+    //   setBookData(res.data);
+    //   console.log(bookData);
+    // };
+
+    const res: AxiosResponse<SearchResult> = await axios({
+      method: 'get',
+      url: '/api/search',
       params: {
         keywords: data.searchString,
       },
     });
     setBookData(res.data);
-    console.log(bookData);
   };
-
   console.log(watch('searchString'));
 
   return (
@@ -54,7 +63,7 @@ const BooksSearchForm: FC = () => {
               {...register('searchString')}
             />
           </FormControl>
-          <Button type="submit">ログイン</Button>
+          <Button type="submit">検索</Button>
         </form>
       </Box>
       <IconButton aria-label="Search books" icon={<AiOutlineSearch />} />

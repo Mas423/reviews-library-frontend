@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { firebaseApp } from '../../sdk/firebase';
 import { isFirebaseError } from '../../types/auth';
 import { signOut } from './signOut';
 
@@ -10,9 +9,13 @@ export type LoginInputs = {
   exampleRequired: string;
 };
 
-export const signIn = async (data: LoginInputs): Promise<void> => {
+/**
+ * ログイン
+ * @param data
+ */
+export const logIn = async (data: LoginInputs): Promise<void> => {
   try {
-    const auth = getAuth(firebaseApp);
+    const auth = getAuth();
 
     if (!data.email || !data.password) {
       console.log('メールアドレスもしくはパスワードがない。');
@@ -24,21 +27,21 @@ export const signIn = async (data: LoginInputs): Promise<void> => {
       data.password,
     );
 
-    const idToken = await userCredential.user?.getIdToken();
-
+    // API認証用
+    const idToken = await userCredential.user.getIdToken();
     if (!idToken) {
       console.log('トークンがありません。');
     }
-    const res = await axios.post(
-      '/api/login',
-      { email: data.email },
-      {
-        headers: {
-          Authorization: idToken,
-        },
+
+    const res = await axios({
+      method: 'post',
+      url: '/api/auth/',
+      headers: {
+        Authorization: idToken,
       },
-    );
-    console.log(res);
+    });
+
+    console.log('/login/: ', res);
   } catch (error) {
     if (
       error instanceof Error &&

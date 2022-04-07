@@ -11,7 +11,6 @@ import {
 } from '@chakra-ui/react';
 import { signOut } from '../../features/auth/signOut';
 import { Inputs, signUp } from '../../features/auth/signUp';
-import { signIn } from '../../features/auth/signIn';
 
 const SignUp: FC = () => {
   // react-fook-form試し
@@ -57,7 +56,6 @@ const SignUp: FC = () => {
             <Button type="submit">アカウント作成</Button>
           </form>
         </Box>
-        <Button onClick={() => signIn}>サインイン</Button>
         <Button onClick={() => signOut()} value="ログアウト">
           ログアウト
         </Button>
