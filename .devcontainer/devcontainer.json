@@ -19,20 +19,6 @@
       "source.fixAll.eslint": true,
       "source.fixAll.styelint": true
     },
-    "editor.formatOnSave": true,
-    // vim
-    "editor.snippetSuggestions": "top",
-    "editor.tabCompletion": "on",
-    "vim.insertModeKeyBindings": [
-      {
-        "before": ["j", "j"],
-        "after": ["<Esc>"]
-      }
-    ],
-    "vim.hlsearch": true,
-    "vim.useSystemClipboard": true,
-    "vim.easymotion": true,
-    "vim.visualstar": true,
-    "vim.useCtrlKeys": true
+    "editor.formatOnSave": true
   }
 }
