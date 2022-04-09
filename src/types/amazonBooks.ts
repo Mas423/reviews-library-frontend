@@ -1,97 +1,92 @@
 // TODO: 名前がイケてない
 export type SearchResult = {
-  searchResult: SearchResultType;
+  SearchResult: SearchResultType;
 };
 
 export type SearchResultType = {
-  items: ItemType[];
-  searchURL: string;
-  totalResultCount: number;
+  Items: ItemType[];
+  SearchURL: string;
+  TotalResultCount: number;
 };
 
 export type ItemType = {
-  asin: string;
-  detailPageURL: string;
-  images: ImagesType;
-  itemInfo: {
-    byLineInfo: ByLineInfoType;
-    contentInfo: ContentInfoType;
-    externalIds: ExternalIdsType;
-    title: TitleType;
+  ASIN: string;
+  DetailPageURL: string;
+  Images: ImagesType;
+  ItemInfo: {
+    ByLineInfo: ByLineInfoType;
+    ContentInfo: ContentInfoType;
+    Title: TitleType;
   };
-};
-
-type ImageValueType = {
-  height: number;
-  url: string;
-  width: number;
 };
 
 export type ImagesType = {
-  primary: {
-    large: ImageValueType;
-    medium: ImageValueType;
-    small: ImageValueType;
+  Primary: {
+    Large: {
+      Height: number;
+      URL: string;
+      Width: number;
+    };
+    Medium: {
+      Height: number;
+      URL: string;
+      Width: number;
+    };
+    Small: {
+      Height: number;
+      URL: string;
+      Width: number;
+    };
   };
 };
 
-type LineValueType = {
-  locale: string;
-  name: string;
-  role: string;
-  roleType: string;
-};
-
 export type ByLineInfoType = {
-  contributors: LineValueType[];
-  manufacturer: {
-    displayValue: string;
-    label: string;
-    locale: string;
+  Contributors: [
+    {
+      Locale: string;
+      Name: string;
+      Role: string;
+      RoleType: string;
+    },
+    {
+      Locale: string;
+      Name: string;
+      Role: string;
+      RoleType: string;
+    },
+  ];
+  Manufacturer: {
+    DisplayValue: string;
+    Label: string;
+    Locale: string;
   };
 };
 
 export type ContentInfoType = {
-  languages: {
-    displayValues: [
+  Languages: {
+    DisplayValues: [
       {
-        displayValue: string;
-        type: string;
+        DisplayValue: string;
+        Type: string;
       },
     ];
     Label: string;
     Locale: string;
   };
-  pagesCount: {
-    displayValue: number;
-    label: string;
-    locale: string;
+  PagesCount: {
+    DisplayValue: number;
+    Label: string;
+    Locale: string;
   };
   PublicationDate: {
-    displayValue: string;
-    label: string;
-    locale: string;
+    DisplayValue: string;
+    Label: string;
+    Locale: string;
   };
-};
-
-type ExternalIdsTypeValueType = {
-  displayValue: string[];
-  label: string;
-  locale: string;
 };
 
 export type TitleType = {
-  displayValue: string;
-  label: string;
-  locale: string;
-};
-
-export type ExternalIdsType = {
-  itemInfo: {
-    externalIds: {
-      eans: ExternalIdsTypeValueType;
-      isbns: ExternalIdsTypeValueType;
-      upcs: ExternalIdsTypeValueType;
-    };
-  };
+  DisplayValue: string;
+  Label: string;
+  Locale: string;
 };
