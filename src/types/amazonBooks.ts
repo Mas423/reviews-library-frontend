@@ -16,50 +16,53 @@ export type ItemType = {
   ItemInfo: {
     ByLineInfo: ByLineInfoType;
     ContentInfo: ContentInfoType;
-    Title: TitleType;
+    ExternalIds: ExternalIdsType | undefined;
+    Title: BasicValue;
   };
+};
+
+type PrimaryValueType = {
+  Height: number;
+  URL: string;
+  Width: number;
 };
 
 export type ImagesType = {
   Primary: {
-    Large: {
-      Height: number;
-      URL: string;
-      Width: number;
-    };
-    Medium: {
-      Height: number;
-      URL: string;
-      Width: number;
-    };
-    Small: {
-      Height: number;
-      URL: string;
-      Width: number;
-    };
+    Large: PrimaryValueType;
+    Medium: PrimaryValueType;
+    Small: PrimaryValueType;
   };
 };
 
+type ExternalIdsValue = {
+  DisplayValues: string[];
+  Label: string;
+  Locale: string;
+};
+
+export type ExternalIdsType = {
+  EANs: ExternalIdsValue;
+  ISBNs: ExternalIdsValue;
+  UPCs: ExternalIdsValue;
+};
+
+type Contributors = {
+  Locale: string;
+  Name: string;
+  Role: string;
+  RoleType: string;
+};
+
+type BasicValue = {
+  DisplayValue: number;
+  Label: string;
+  Locale: string;
+};
+
 export type ByLineInfoType = {
-  Contributors: [
-    {
-      Locale: string;
-      Name: string;
-      Role: string;
-      RoleType: string;
-    },
-    {
-      Locale: string;
-      Name: string;
-      Role: string;
-      RoleType: string;
-    },
-  ];
-  Manufacturer: {
-    DisplayValue: string;
-    Label: string;
-    Locale: string;
-  };
+  Contributors: Contributors[];
+  Manufacturer: BasicValue;
 };
 
 export type ContentInfoType = {
@@ -73,16 +76,8 @@ export type ContentInfoType = {
     Label: string;
     Locale: string;
   };
-  PagesCount: {
-    DisplayValue: number;
-    Label: string;
-    Locale: string;
-  };
-  PublicationDate: {
-    DisplayValue: string;
-    Label: string;
-    Locale: string;
-  };
+  PagesCount: BasicValue;
+  PublicationDate: BasicValue;
 };
 
 export type TitleType = {

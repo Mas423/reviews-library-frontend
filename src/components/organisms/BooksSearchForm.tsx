@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {
   Input,
   HStack,
@@ -13,7 +14,8 @@ import axios, { AxiosResponse } from 'axios';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { SearchResult } from '../../types/amazonBooks';
+import { firebaseAuth } from '../../sdk/firebase';
+import { ItemType, SearchResult } from '../../types/amazonBooks';
 
 export type searchInputsType = {
   searchString: string;
@@ -22,22 +24,57 @@ export type searchInputsType = {
 
 const BooksSearchForm: FC = () => {
   const { register, handleSubmit, watch } = useForm<searchInputsType>();
-
   const [bookData, setBookData] = useState<SearchResult | undefined>(undefined);
+
+  const registerBook = async (data: ItemType): Promise<void> => {
+    try {
+      const auth = firebaseAuth;
+      const idToken = await auth.currentUser?.getIdToken();
+
+      // テスト
+      console.log(data.ItemInfo);
+      const isbn =
+        data.ItemInfo.ExternalIds?.ISBNs.DisplayValues.join(';') ?? '';
+      const asin = data.ASIN;
+      const title = data.ItemInfo.Title.DisplayValue;
+
+      // const author = data.ItemInfo.ByLineInfo.Contributors[0].Name;
+      const author = data.ItemInfo.ByLineInfo.Contributors.find(
+        (contributor) => contributor.RoleType === 'author',
+      )?.Name;
+
+      const publication_date =
+        data.ItemInfo.ContentInfo.PublicationDate.DisplayValue;
+      const detail_page_url = data.DetailPageURL;
+      const image_url = data.Images.Primary.Medium.URL;
+
+      const res = await axios({
+        method: 'post',
+        url: '/api/books',
+        data: {
+          isbn,
+          asin,
+          title,
+          author,
+          publication_date,
+          detail_page_url,
+          image_url,
+        },
+        headers: {
+          Authorization: idToken as string,
+        },
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const getBooks = async (data: searchInputsType): Promise<void> => {
     if (!data) {
       console.error('dataがないよ');
     }
     console.log('getします');
-    //   const res: AxiosResponse<SearchResult> = await axios.get('/api/search', {
-    //     params: {
-    //       keywords: data.searchString,
-    //     },
-    //   });
-    //   setBookData(res.data);
-    //   console.log(bookData);
-    // };
 
     const res: AxiosResponse<SearchResult> = await axios({
       method: 'get',
@@ -73,6 +110,7 @@ const BooksSearchForm: FC = () => {
             <Box>
               <Heading as="h3">{item.ItemInfo.Title.DisplayValue}</Heading>
               <Image src={item.Images.Primary.Medium.URL} />
+              <Button onClick={() => registerBook(item)}>登録登録登録</Button>
             </Box>
           ))
         ) : (
