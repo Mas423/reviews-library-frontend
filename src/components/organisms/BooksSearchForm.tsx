@@ -31,14 +31,12 @@ const BooksSearchForm: FC = () => {
       const auth = firebaseAuth;
       const idToken = await auth.currentUser?.getIdToken();
 
-      // テスト
-      console.log(data.ItemInfo);
       const isbn =
         data.ItemInfo.ExternalIds?.ISBNs.DisplayValues.join(';') ?? '';
       const asin = data.ASIN;
       const title = data.ItemInfo.Title.DisplayValue;
 
-      // const author = data.ItemInfo.ByLineInfo.Contributors[0].Name;
+      // Authorのみ保存
       const author = data.ItemInfo.ByLineInfo.Contributors.find(
         (contributor) => contributor.RoleType === 'author',
       )?.Name;

@@ -1,8 +1,4 @@
-import axios from 'axios';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { firebaseAuth } from '../../sdk/firebase';
-// import { firebaseApp } from '../../sdk/firebase';
-import { isFirebaseError } from '../../types/auth';
+import axios, { AxiosError } from 'axios';
 
 export type Inputs = {
   username: string;
@@ -11,41 +7,39 @@ export type Inputs = {
   exampleRequired: string;
 };
 
+type ErrorResponse = {
+  message: string;
+};
+
 export const signUp = async (data: Inputs): Promise<void> => {
   try {
     const username = data?.username;
     const email = data?.email;
     const password = data?.password;
-    const auth = firebaseAuth;
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password,
-    );
 
-    // API認証用
-    const idToken = await userCredential.user.getIdToken();
-    // サインアップ
-    const _ = axios.post(
-      '/api/users/',
-      {
+    const res = await axios({
+      method: 'post',
+      url: '/api/users',
+      data: {
         username,
+        email,
+        // TODO: 平文で送らない
+        password,
       },
-      {
-        headers: {
-          Authorization: idToken,
-        },
-      },
-    );
+    });
+    console.log(res.data);
   } catch (error) {
-    if (
-      error instanceof Error &&
-      isFirebaseError(error) &&
-      error.code === 'auth/email-already-in-use'
-    ) {
-      console.error('既に使用されているメールアドレスです。');
-    } else {
-      console.error('不明なエラー: ', error);
+    // TODO: Axios->Firebaseのエラー判断をしたい
+    if (error instanceof Error) {
+      if (axios.isAxiosError(error)) {
+        console.error(
+          `isAxiosError: ${JSON.stringify(
+            (error as AxiosError<ErrorResponse>).response?.data.message,
+          )}`,
+        );
+      } else {
+        console.error(`不明なエラー: ${error.message}`);
+      }
     }
   }
 };
