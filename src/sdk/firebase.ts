@@ -1,7 +1,6 @@
 import { getAuth } from 'firebase/auth';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import { initializeApp } from 'firebase/app';
+import 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.FB_API_KEY,
@@ -14,5 +13,5 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-export const firebaseAuth = getAuth();
+const firebaseApp = initializeApp(firebaseConfig);
+export const firebaseAuth = getAuth(firebaseApp);
