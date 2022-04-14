@@ -26,6 +26,9 @@ const Home: FC = () => {
         <Link as={RouterLink} to="/search">
           本の検索
         </Link>
+        <Link as={RouterLink} to="/header">
+          ヘッダ
+        </Link>
       </Stack>
       <Button onClick={() => currentUser()}>現在のユーザ表示</Button>
     </>

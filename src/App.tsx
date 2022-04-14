@@ -6,6 +6,7 @@ import BooksDetail from './pages/BooksDetail';
 import SignUp from './components/organisms/SignUp';
 import LogIn from './components/organisms/LogIn';
 import User from './pages/User';
+import Header from './components/organisms/Header';
 
 const App: FC = () => (
   <BrowserRouter>
@@ -15,6 +16,7 @@ const App: FC = () => (
       <Route path="signup" element={<SignUp />} />
       <Route path="login" element={<LogIn />} />
       <Route path="user" element={<User />} />
+      <Route path="header" element={<Header />} />
       <Route index element={<Home />} />
     </Routes>
   </BrowserRouter>
