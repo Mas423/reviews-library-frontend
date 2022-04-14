@@ -86,17 +86,6 @@ module.exports = {
         extensions: ['.jsx', '.tsx'],
       },
     ],
-    // コンポーネント呼び出し時のスプレッド構文は、個々のpropsを明記すれば許容
-    'react/jsx-props-no-spreading': [
-      'error',
-      {
-        html: 'enforce',
-        custom: 'enforce',
-        explicitSpread: 'ignore',
-      },
-    ],
-    // Reducerでのエラー回避
-    // https://github.com/reduxjs/redux-toolkit/issues/521
     'react/react-in-jsx-scope': 'off',
     'no-param-reassign': ['error', { props: false }],
     'import/prefer-default-export': 'off',
