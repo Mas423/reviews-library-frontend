@@ -10,7 +10,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { FC } from 'react';
+import { FC, useLayoutEffect, useState } from 'react';
 
 const MobileHeader: FC = () => {
   const hoge = 'hoge';
@@ -71,15 +71,23 @@ const DesktopHeader: FC = () => {
 };
 
 const Header: FC = () => {
-  const hoge = 'hoge';
-  console.log(hoge);
   // コンポーネントの切り替えでレスポンシブに対応する
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const [test, setTest] = useState(false);
+  // 一瞬Mobile表示になってしまうチラツキ防止
+  useLayoutEffect(() => {
+    setTest(true);
+  });
 
   return (
     <>
-      <Box>{isMobile ? <MobileHeader /> : <DesktopHeader />}</Box>
+      {test ? (
+        <Box>{isMobile ? <MobileHeader /> : <DesktopHeader />}</Box>
+      ) : (
+        <Text>読込中</Text>
+      )}
     </>
   );
 };
+
 export default Header;

@@ -7,6 +7,7 @@ import SignUp from './components/organisms/SignUp';
 import LogIn from './components/organisms/LogIn';
 import User from './pages/User';
 import Header from './components/organisms/Header';
+import Reviews from './components/organisms/Reviews';
 
 const App: FC = () => (
   <BrowserRouter>
@@ -17,6 +18,7 @@ const App: FC = () => (
       <Route path="login" element={<LogIn />} />
       <Route path="user" element={<User />} />
       <Route path="header" element={<Header />} />
+      <Route path="reviews" element={<Reviews />} />
       <Route index element={<Home />} />
     </Routes>
   </BrowserRouter>
