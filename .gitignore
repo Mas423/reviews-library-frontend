@@ -27,3 +27,4 @@ Tool
 docker/nginx/logs
 docker/nginx/**/*.conf
 tmpForDev
+env

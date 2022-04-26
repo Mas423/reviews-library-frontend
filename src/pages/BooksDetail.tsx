@@ -16,7 +16,6 @@ import axios from 'axios';
 import NavigationBar from '../components/organisms/NavigationBar';
 import Header from '../components/organisms/Header';
 import { ItemElement } from '../types/RakutenBooks';
-import { getIsbnBooks } from '../api/GetBooks';
 
 interface Props {
   book: ItemElement | undefined;

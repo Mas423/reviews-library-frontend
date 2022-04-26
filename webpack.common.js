@@ -1,5 +1,4 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
@@ -13,6 +12,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
+    clean: true,
   },
   module: {
     rules: [
@@ -28,29 +28,18 @@ module.exports = {
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
       },
-      {
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        generator: {
-          filename: 'assets/[name][ext]',
-        },
-        type: 'asset/resource',
-      },
+      // {
+      //   test: /\.tsx?$/,
+      //   exclude: /node_modules/,
+      //   loader: 'babel-loader',
+      // },
     ],
   },
   target: ['web', 'es5'],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
-    alias: {
-      assets: path.resolve(__dirname, 'src/assets/'),
-    },
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/html/index.html',
     }),
@@ -64,15 +53,10 @@ module.exports = {
       async: false,
     }),
     new ESLintPlugin({
-      extensions: ['.ts'],
+      extensions: ['.ts', '.tsx'],
       exclude: ['node_module', 'dist'],
     }),
     new webpack.EnvironmentPlugin([
-      'RAKUTEN_DEV_ID',
-      'RAKUTEN_SECRET',
-      'RAKUTEN_ID',
-      'AUTH0_DOMAIN',
-      'AUTH0_CLIENT_ID',
       'FB_API_KEY',
       'FB_AUTH_DOMAIN',
       'PROJECT_ID',

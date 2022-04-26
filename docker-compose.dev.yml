@@ -6,8 +6,10 @@ services:
     build: ./docker/nginx
     ports:
       - '${NGINX_HOST_PORT}:${NGINX_PORT}'
-    env_file:
-      - ./env/.nginx.dev.env
+    environment:
+      - NGINX_PORT=${NGINX_PORT}
+      - NGINX_HOST=${NGINX_HOST}
+      - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.conf
     volumes:
       - ./dist:/usr/share/nginx/html
       - ./docker/nginx/templates:/etc/nginx/templates
@@ -26,7 +28,7 @@ services:
     ports:
       - ${FRONT_HOST_PORT}:${FRONT_PORT}
     volumes:
-      - .:/node/client
+      - .:/home/node/client
 
 networks:
   dev_network:
