@@ -26,7 +26,11 @@ const MobileHeader: FC = () => {
 const DesktopHeader: FC = () => {
   const hoge = 'hoge';
   console.log(hoge);
-  const navList = [{ name: 'home' }, { name: 'hoge' }, { name: 'foo' }];
+  const navList = [
+    { name: 'home', path: '/' },
+    { name: '本棚', path: '/shelf' },
+    { name: 'foo', path: 'foo' },
+  ];
 
   return (
     <Box>
@@ -45,10 +49,11 @@ const DesktopHeader: FC = () => {
           <HStack ml={8}>
             {navList.map((nav) => (
               <Text
+                key={nav.name}
                 _hover={{ color: 'gray.800' }}
                 textColor="gray.500"
                 as={RouterLink}
-                to="/header"
+                to={nav.path}
               >
                 {nav.name}
               </Text>

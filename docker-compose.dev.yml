@@ -1,34 +1,19 @@
-version: '3.8'
+version: "3.8"
 
 services:
   nginx:
-    container_name: nginx
-    build: ./docker/nginx
     ports:
-      - '${NGINX_HOST_PORT}:${NGINX_PORT}'
-    environment:
-      - NGINX_PORT=${NGINX_PORT}
-      - NGINX_HOST=${NGINX_HOST}
-      - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.conf
-    volumes:
-      - ./dist:/usr/share/nginx/html
-      - ./docker/nginx/templates:/etc/nginx/templates
-      - ./docker/nginx/logs:/var/log/nginx/
+      - "${NGINX_HOST_PORT}:${NGINX_PORT}"
+    env_file:
+      - ./env/.nginx.dev.env
     networks:
       - dev_network
 
   front:
-    build:
-      context: .
-      dockerfile: ./docker/front/Dockerfile
-    container_name: front
-    hostname: front
-    stdin_open: true
-    tty: true
     ports:
       - ${FRONT_HOST_PORT}:${FRONT_PORT}
     volumes:
-      - .:/home/node/client
+      - ./client:/node/client
 
 networks:
   dev_network:

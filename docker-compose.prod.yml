@@ -3,9 +3,11 @@ version: "3.8"
 services:
   nginx:
     container_name: nginx
-    build:
-      context: .
-      dockerfile: ./docker/nginx/Dockerfile
+    build: ./docker/nginx
+    ports:
+      - "${NGINX_HOST_PORT}:${NGINX_PORT}"
+    env_file:
+      - ./env/.nginx.dev.env
     volumes:
       - ./client/dist:/usr/share/nginx/html
       - ./docker/nginx/templates:/etc/nginx/templates
@@ -19,10 +21,12 @@ services:
       dockerfile: ./docker/front/Dockerfile
     container_name: front
     hostname: front
-    volumes:
-      - ./client:/node/client
     stdin_open: true
     tty: true
+    ports:
+      - ${FRONT_HOST_PORT}:${FRONT_PORT}
+    volumes:
+      - ./client:/node/client
 
 networks:
   dev_network:
